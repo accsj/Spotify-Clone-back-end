@@ -9,7 +9,7 @@ const playlist = require('./routes/playlist/playlist.js');
 const musics = require('./routes/musics/musics.js');
 
 // Configs
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(cors({ credentials: true, origin: "https://spotify-clone-accsj.vercel.app" }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.json());
