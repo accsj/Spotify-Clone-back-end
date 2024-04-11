@@ -1,2 +1,6 @@
 node_modules
 .env
+download.js
+listar.js
+upload.js
+GoogleDriveCredential.json

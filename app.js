@@ -7,16 +7,18 @@ const app = express();
 const login = require('./routes/auth/login.js');
 const playlist = require('./routes/playlist/playlist.js');
 const musics = require('./routes/musics/musics.js');
+const googleregister = require('./routes/registergoogle/googleregister.js');
 
 // Configs
-app.use(cors({ credentials: true, origin: "https://spotify-clone-accsj.vercel.app" }));
+const allowedOrigins = ["http://localhost:3000"]
+
+app.use(cors({ credentials: true, origin: allowedOrigins}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(cookieParser());
 
 // Routes
-
 app.get("/", (req,res) => {
     res.send("Servidor funcionando para fazer requisições!")
 })
@@ -24,7 +26,7 @@ app.get("/", (req,res) => {
 app.use('/', login)
 app.use('/', playlist)
 app.use('/', musics)
-
+app.use('/', googleregister)
 
 app.listen(process.env.port || 5000,  ()=> {
     console.log("Servidor rodando na porta", process.env.PORT);
