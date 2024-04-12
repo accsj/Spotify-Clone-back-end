@@ -5,9 +5,11 @@ const cors = require("cors");
 const app = express();
 
 const login = require('./routes/auth/login.js');
-const playlist = require('./routes/playlist/playlist.js');
+const playlist = require('./routes/addplaylist/playlist.js');
 const musics = require('./routes/musics/musics.js');
 const googleregister = require('./routes/registergoogle/googleregister.js');
+const listyoursongs = require('./routes/playlist/playlist.js');
+const specifymusics = require('./routes/specifymusics/specifymusics.js');
 
 // Configs
 const allowedOrigins = ["http://localhost:3000"]
@@ -27,6 +29,8 @@ app.use('/', login)
 app.use('/', playlist)
 app.use('/', musics)
 app.use('/', googleregister)
+app.use('/', listyoursongs)
+app.use('/', specifymusics)
 
 app.listen(process.env.port || 5000,  ()=> {
     console.log("Servidor rodando na porta", process.env.PORT);

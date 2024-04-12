@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 
 const router = express()
 
-router.post('/googleloginregisterr', async (req, res) => {
+router.post('/googleloginregister', async (req, res) => {
     const { username, email, sub } = req.body;
 
     try {
