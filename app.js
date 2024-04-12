@@ -10,6 +10,8 @@ const musics = require('./routes/musics/musics.js');
 const googleregister = require('./routes/registergoogle/googleregister.js');
 const listyoursongs = require('./routes/playlist/playlist.js');
 const specifymusics = require('./routes/specifymusics/specifymusics.js');
+const checklikesong = require('./routes/checklikesong/checklikesong.js');
+const getusername = require('./routes/getusername/getusername.js');
 
 // Configs
 const allowedOrigins = ["http://localhost:3000"]
@@ -31,6 +33,8 @@ app.use('/', musics)
 app.use('/', googleregister)
 app.use('/', listyoursongs)
 app.use('/', specifymusics)
+app.use('/', checklikesong)
+app.use('/', getusername)
 
 app.listen(process.env.port || 5000,  ()=> {
     console.log("Servidor rodando na porta", process.env.PORT);
