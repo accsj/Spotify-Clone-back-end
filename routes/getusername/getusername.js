@@ -22,15 +22,15 @@ router.get('/getusername', async(req, res) => {
             return res.status(401).json({ success: false, message: 'Token inválido.' });
         }
         const userId = decoded.userId;
-        const client = await pool.query('select username from users where id = $1', [userId]);
-        console.log(client)
+        const client = await pool.connect();
         
-        if (client.rows.length === 0) {
+        const result = await pool.query('select username from users where id = $1', [userId]);
+        
+        if (result.rows.length === 0) {
             return res.status(404).json({ success: false, message: 'Usuário não encontrado.' });
         }
         
-        const username = client.rows[0].username;
-        
+        const username = result.rows[0].username;
         client.release()
         res.status(200).json({ success: true, username });
     }
