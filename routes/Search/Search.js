@@ -9,12 +9,9 @@ router.use(bodyParser.json());
 router.post('/search', async (req, res) => {
     try {
         const searchItem = req.body.searchItem;
-        console.log('searchItem:', searchItem);
-
         const index = 0;
         const limit = 4;
         const format = 'json';
-
         const apiUrl = `https://api.deezer.com/search?q=${searchItem}&index=${index}&limit=${limit}&output=${format}`;
 
         const searchTracks = async () => {
