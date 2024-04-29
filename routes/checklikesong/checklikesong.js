@@ -17,7 +17,7 @@ async function getMusicId(songUrl) {
         if (result.rows.length > 0) {
             return result.rows[0].id;
         } else {
-            return null; // Retorna null se a música não for encontrada
+            return null; 
         }
     } catch (error) {
         console.error('Erro ao buscar o ID da música:', error);
@@ -40,7 +40,6 @@ router.get('/checkLikeSong', async (req, res) => {
 
         const userId = decoded.userId;
         const songUrl = req.query.songUrl;
-
         const musicId = await getMusicId(songUrl);
 
         if (musicId !== null) {
@@ -55,11 +54,9 @@ router.get('/checkLikeSong', async (req, res) => {
                 ) AS liked
             `;
             const result = await pool.query(checkLikedQuery, [musicId, userId]);
-            console.log(songUrl, userId);
             console.log(result.rows[0].liked);
             res.status(200).json({ success: true, liked: result.rows[0].liked });
         } else {
-            // Se o ID da música não for encontrado, envie uma resposta adequada
             res.status(404).json({ success: false, message: 'Música não encontrada.' });
         }
     } catch (error) {

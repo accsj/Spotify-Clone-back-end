@@ -20,7 +20,6 @@ router.post('/search', async (req, res) => {
                 console.log('Response data:', response.data);
                 if (response.data && response.data.data) {
                     const tracks = response.data.data;
-                    console.log('Tracks:', tracks);
                     const formattedTracks = tracks.map(track => ({
                         title: track.title,
                         preview: track.preview,
