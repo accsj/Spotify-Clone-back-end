@@ -14,6 +14,8 @@ const checklikesong = require('./routes/checklikesong/checklikesong.js');
 const getusername = require('./routes/getusername/getusername.js');
 const search = require('./routes/Search/Search.js');
 const register = require('./routes/register/register.js');
+const recovery = require('./routes/recovery/recovery.js');
+const recoverypass = require('./routes/recoverypass/recoverypass.js');
 
 // Configs
 const allowedOrigins = ["http://localhost:3000", "https://spotify-clone-accsj.vercel.app"]
@@ -39,6 +41,8 @@ app.use('/', checklikesong)
 app.use('/', getusername)
 app.use('/', search)
 app.use('/', register)
+app.use('/', recovery)
+app.use('/', recoverypass)
 
 app.listen(process.env.port || 5000,  ()=> {
     console.log("Servidor rodando na porta", process.env.PORT);
