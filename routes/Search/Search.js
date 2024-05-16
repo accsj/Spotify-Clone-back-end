@@ -17,16 +17,17 @@ router.post('/search', async (req, res) => {
         const searchTracks = async () => {
             try {
                 const response = await axios.get(apiUrl);
-                console.log('Response data:', response.data);
                 if (response.data && response.data.data) {
                     const tracks = response.data.data;
                     const formattedTracks = tracks.map(track => ({
                         title: track.title,
                         preview: track.preview,
                         artist: track.artist.name,
+                        artistId: track.artist.id,
                         albumCover: track.album.cover_big,
                         artistPic: track.artist.picture_big,
                         duration: track.duration,
+                        isExplicit: track.explicit_lyrics,
                     }));
                     res.status(200).json(formattedTracks);
                 } else {
