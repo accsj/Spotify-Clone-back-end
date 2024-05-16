@@ -12,6 +12,8 @@ const listyoursongs = require('./routes/playlist/playlist.js');
 const specifymusics = require('./routes/specifymusics/specifymusics.js');
 const checklikesong = require('./routes/checklikesong/checklikesong.js');
 const getusername = require('./routes/getusername/getusername.js');
+const getalbums = require('./routes/getalbums/getalbums.js');
+const albumpreview = require('./routes/albumpreview/albumpreview.js');
 const search = require('./routes/Search/Search.js');
 const register = require('./routes/register/register.js');
 const recovery = require('./routes/recovery/recovery.js');
@@ -39,6 +41,8 @@ app.use('/', listyoursongs)
 app.use('/', specifymusics)
 app.use('/', checklikesong)
 app.use('/', getusername)
+app.use('/', getalbums)
+app.use('/', albumpreview)
 app.use('/', search)
 app.use('/', register)
 app.use('/', recovery)

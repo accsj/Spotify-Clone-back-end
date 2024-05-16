@@ -5,30 +5,14 @@ const router = express();
 
 function extractToken(authorizationHeader) {
     if (!authorizationHeader) return null;
-    const token = authorizationHeader.split(' ')[1];
+    const token = authorizationHeader.split(' ')[1]; 
     return token;
 }
-
-async function getMusicId(songUrl) {
-    try {
-        const query = 'SELECT id FROM musics WHERE songurl = $1';
-        const result = await pool.query(query, [songUrl]);
-        console.log(result.rows[0].id)
-        if (result.rows.length > 0) {
-            return result.rows[0].id;
-        } else {
-            return null; 
-        }
-    } catch (error) {
-        console.error('Erro ao buscar o ID da música:', error);
-        return null;
-    }
-}
-
 
 router.get('/checkLikeSong', async (req, res) => {
     try {
         const token = extractToken(req.headers.authorization);
+        console.log(token)
         if (!token) {
             return res.status(401).json({ success: false, message: 'Token não fornecido.' });
         }
@@ -40,7 +24,26 @@ router.get('/checkLikeSong', async (req, res) => {
 
         const userId = decoded.userId;
         const songUrl = req.query.songUrl;
+        console.log(songUrl)
+
+        const getMusicId = async (songUrl) => {
+            try {
+                const query = 'SELECT id FROM musics WHERE songurl = $1';
+                const result = await pool.query(query, [songUrl]);
+                console.log(result.rows[0].id)
+                if (result.rows.length > 0) {
+                    return result.rows[0].id;
+                } else {
+                    return null; 
+                }
+            } catch (error) {
+                console.error('Erro ao buscar o ID da música:', error);
+                return null;
+            }
+        };
+
         const musicId = await getMusicId(songUrl);
+        let liked = false; 
 
         if (musicId !== null) {
             const checkLikedQuery = `
@@ -54,14 +57,15 @@ router.get('/checkLikeSong', async (req, res) => {
                 ) AS liked
             `;
             const result = await pool.query(checkLikedQuery, [musicId, userId]);
-            console.log(result.rows[0].liked);
-            res.status(200).json({ success: true, liked: result.rows[0].liked });
+            liked = result.rows[0].liked;
+            console.log(liked)
+            res.status(200).json({ success: true, liked: liked });
         } else {
-            res.status(404).json({ success: false, message: 'Música não encontrada.' });
+            res.status(404).json({ success: false, liked: liked, message: 'Música não encontrada.' });
         }
     } catch (error) {
         console.error('Erro ao verificar música na playlist:', error);
-        return res.status(500).json({ success: false, message: 'Erro ao verificar música na playlist.' });
+        return res.status(500).json({ success: false, liked: false, message: 'Erro ao verificar música na playlist.' });
     }
 });
 
